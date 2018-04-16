@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Products list</h1>
+
+	<div>
+		{{ form_start(filter_form) }}
+			{{ form_row(filter_form.category) }}
+			{{ form_row(filter_form.minPrice) }}
+			{{ form_row(filter_form.maxPrice) }}
+			{% if errorMessage != '' %}
+				<ul>
+					<li>
+						{{ errorMessage }}
+					</li>
+				</ul>
+			{% endif %}
+			{{ form_row(filter_form.existence) }}
+            <input type="submit" value="Apply filter">
+        {{ form_end(filter_form) }}			
+	</div>
+	
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+				<th>Price</th>
+				<th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td><a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.name }}</a></td>
+				<td>{{ product.price }}</td>
+				<td>{{ product.category.name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+	
+	{% if is_granted('ROLE_ADMIN') %}
+		<ul>
+			<li>
+				<a href="{{ path('product_new') }}">Create a new product</a>
+			</li>
+		</ul>
+	{% endif %}
+	
+{% endblock %}

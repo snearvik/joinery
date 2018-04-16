@@ -1,0 +1,5 @@
+<td><input type="number" id="{{ material.id }}" class="quantity" value="{{ material.quantity }}"/></td>
+
+{% block javascripts %}
+	<script src="{{ asset('js/materials.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+			Hi {{ app.user.username }}!
+		{% endif %}
+		<a href="{{ path('register') }}">Register</a> 
+		<a href="{{ path('login') }}">Login</a> 
+		<a href="{{ path('logout') }}">Exit</a> <br>
+		
+		<a href="{{ path('product_index') }}">Products</a>
+		
+		{% if is_granted('ROLE_ADMIN') %}
+			<a href="{{ path('material_index') }}">Materials</a>
+			<a href="{{ path('category_index') }}">Categories</a>
+		{% endif %}
+		 <br>
+        
+		{% block body %}{% if error %}{% endif %}{% endblock %}        
+		<script src="{{ asset('js/jquery-3.3.1.js') }}"></script> 
+		<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+		{% block javascripts %}{% endblock %}
+    </body>
+</html>
